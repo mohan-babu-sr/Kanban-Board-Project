@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <title>Kanban Board</title>
+        
+        <link rel="stylesheet" href="dd.css" />
+    </head>
+
+
+    <body>
+
+        <!-- header division -->
+        <div class="header">
+            <a href="#" class="logo">Kanban Board</a>
+            <div class="header-right">
+                <button id="headerend" class="show-modal" ><img src="https://img.icons8.com/ios-filled/24/000000/add-property.png"/></button>
+                <button class="reset" onclick="resetdata()"><img src="https://img.icons8.com/plumpy/24/000000/delete-forever.png"/></button>
+            </div>
+        </div>
+        <!-- header end -->
+          
+        <!-- form -->
+        <form class="search" autocomplete="off">
+            <div class="modal hidden">
+                <button class="close-modal">&times;</button>
+                    <!-- <form class="upload"> -->
+                        <div class="upload__column">
+                          <h5>ADD NEW TASK 📃</h5>
+                          
+                          <label>Title :</label>
+                          <input required name="title" type="text" id="titleL" /><br><br>
+                          
+                          <label>Description :</label>
+                          <input required name="description" type="text" id="descriptionL" /><br><br>
+                          
+                          <label>Colour :</label>
+                          <input  required name="color" type="color" id="colorL"/>
+
+                          <label for="priority" forclass="priority">    Priority</label>
+                          <input type="checkbox" id="priority" name="priority" value="true">
+
+                          <select id="task" name="taskpick" form="carform">
+                            <option value="divc1">Backlog</option>
+                            <option value="divc2">In-Progress</option>
+                            <option value="divc3">Done</option>
+                          </select>
+                          
+                        </div>
+
+                        <button class="btn upload__btn" id="submitL" type="submit" onclick="divcount()">
+                            Submit
+                        </button>     
+                    <!-- </form> -->
+                </div>
+                <div class="overlay hidden"></div>
+            
+        </form>
+
+        <!-- <form>
+            <a href="google.com">hi</a>
+        </form> -->
+    <!-- form end -->
+    
+    <!-- <article class="card" draggable="true" ondragstart="drag(event)" data-id="${task.title}" style="border: 2px solid ${task.color};
+        border-left: 8px solid ${task.color};">
+            <h3>${task.title}</h3>
+            <h1>${task.description}</h1>
+        </article> -->
+
+    <!-- kanban board -->
+    <main class="board">
+
+        <!-- todo -->
+        <div class="h2header">
+            <h2 class="backlog">Backlog
+                <p id="divCount"></p>
+            </h2>
+            <div class="column column-todo" ondrop="drop(event)" ondragover="allowDrop(event)">
+                <div class="scroll">
+                    
+                    <div class="newtask" id="divc1">
+                        
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!-- todo end -->
+                
+                
+                
+        <!-- inprogress -->
+        <div class="h2header">
+
+        <h2 class="inprogress">In Progress
+            <p id="divCount2"></p>
+        </h2>
+        <div class="column column-ip" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="scroll">
+            
+            <div id="divc2"></div></div>
+        </div>
+        </div>
+        <!-- inprogress end -->
+            
+            
+        <!-- done -->
+        <div class="h2header">
+
+        <h2 class="done">Done
+            <p id="divCount3"></p>
+        </h2>
+        <div class="column column-done" ondrop="drop(event)" ondragover="allowDrop(event)">
+            <div class="scroll">
+            
+            <div id="divc3"></div>   </div> 
+        </div>
+        </div>
+        <!-- done -->
+
+    </main>
+    <!-- kanban board end -->
+            
+    <script src="dd.js"></script>
+    </body>
+</html>

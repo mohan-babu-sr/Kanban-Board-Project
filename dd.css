@@ -1,0 +1,259 @@
+html {
+  background: #ebe9e9;
+}
+
+/* /////////////////////////////////////////////// */
+/* header css */
+.logo {
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  font-weight: bolder;
+  cursor: context-menu;
+}
+
+.header,
+.headerend {
+  overflow: hidden;
+  /* background-color: #f2f2f2; */
+  padding: 20px 10px;
+  border-radius: 5px;
+  padding-top: 20px;
+}
+
+.show-modal {
+  border: none;
+  font-size: x-large;
+  margin-top: -20px;
+  cursor: pointer;
+  background: none;
+}
+
+.reset {
+  border: none;
+  font-size: x-large;
+  background: none;
+  margin-top: -20px;
+  cursor: pointer;
+}
+
+.header a {
+  float: left;
+  color: #a5a5a5;
+  text-align: center;
+  padding: 5px;
+  text-decoration: none;
+  font-size: 25px;
+  line-height: 10px;
+  padding-left: 230px;
+}
+
+.header-right {
+  float: right;
+  padding-right: 245px;
+}
+
+/* /////////////////////////////////////////////// */
+/* 3 div box css */
+.board {
+  display: flex;
+  justify-content: center;
+  margin-top: 1%;
+}
+
+.card {
+  background: #e0e5e7;
+  border: 3px solid #3f4447;
+  border-left: 10px solid #3f4447;
+  padding: 15px;
+  margin-bottom: 10px;
+  border-radius: 5px;
+  cursor: pointer;
+  width: auto;
+  height: auto;
+  cursor: grab;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.card:active {
+  cursor: grabbing;
+}
+
+.card.dragging {
+  opacity: 0.5;
+  transform: scale(0.8);
+}
+
+.column {
+  width: 270px;
+  height: 550px;
+  background: #ffffff;
+  /* border-radius: 15px; */
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  overflow-y: auto;
+}
+.column::-webkit-scrollbar {
+  display: none;
+}
+
+.backlog {
+  border-bottom: 3px solid red;
+}
+
+.inprogress {
+  border-bottom: 3px solid blue;
+}
+
+.column.drop {
+  border: 2px dashed #fff;
+}
+
+.column.drop article {
+  pointer-events: none;
+}
+
+.datedata {
+  font-size: 10px;
+  color: #a1a0a0;
+  margin-top: -10px;
+  padding-left: 130px;
+}
+
+h3 {
+  font-size: 21px;
+  font-family: Helvetica;
+  text-decoration: underline;
+  margin: -17px 20px 10px 0px;
+  width: auto;
+  height: auto;
+}
+
+h1 {
+  font-size: 18px;
+  font-family: Helvetica;
+  margin: 0;
+  width: auto;
+  height: auto;
+}
+
+.card:last-child {
+  margin-bottom: 0;
+}
+
+h2 {
+  border-bottom: 3px solid green;
+  margin: -10px -10px 10px;
+  padding: 4px 10px;
+  font-family: Helvetica;
+  font-size: 21px;
+}
+
+.h2header {
+  padding: 30px;
+  width: 270px;
+  height: 565px;
+  background: #ffffff;
+  border-radius: 15px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  /* border: 2px solid black; */
+  margin-right: 20px;
+}
+
+h2 p {
+  float: right;
+  margin: auto;
+}
+
+/* /////////////////////////////////////////////// */
+/* CLASSES TO MAKE MODAL WORK */
+.hidden {
+  display: none;
+}
+
+.modal {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30%;
+  font-size: 25px;
+  font-family: Tahoma;
+  background-color: rgb(255, 255, 255);
+  padding: 3rem;
+  border-radius: 25px;
+  box-shadow: 0 3rem 5rem rgba(0, 0, 0, 0.3);
+  z-index: 10;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.6);
+  backdrop-filter: blur(3px);
+  z-index: 5;
+}
+
+/* .show-modal {
+  cursor: pointer;
+  width: 3px;
+  height: 20px;
+  border-radius: 50px;
+  font-size: xx-large;
+  padding-bottom: 40px;
+  padding-right: 25px;
+} */
+
+.close-modal {
+  position: absolute;
+  top: 1.2rem;
+  right: 2rem;
+  font-size: 3rem;
+  color: #333;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+#submitL {
+  width: 120px;
+  height: 40px;
+  border: none;
+  color: #ffffff;
+  background-color: #4d5255;
+  font-size: 18px;
+  font-family: Tahoma;
+  border-radius: 30px;
+}
+
+#submitL:hover {
+  background-color: #ff6126;
+  color: black;
+}
+
+#titleL,
+#descriptionL {
+  width: 100%;
+  height: 35px;
+  border: none;
+  border-bottom: 1px solid black;
+  font-size: 20px;
+}
+
+#colorL {
+  border-radius: 50px;
+  height: 25px;
+  width: 25px;
+}
+
+h5 {
+  font-size: 30px;
+  font-family: Tahoma;
+  background-image: linear-gradient(#fce9d5, #f5e1da);
+  padding: 30px;
+  margin: 20px 50px 20px 50px;
+  width: auto;
+  text-align: center;
+  border-radius: 20px;
+  font-family: Tahoma;
+}
