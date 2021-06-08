@@ -1,31 +1,47 @@
 'use strict';
-/////////////////////////////////////////////////////////////////////////
 
 //Form Data
 const form = document.forms[0];
-const storagedata=[];
-
-// console.log(form);
-// console.log(formdata);
 form.addEventListener("submit", edittask);
+
+const form2 = document.forms.editform;
+form2.addEventListener("submit2", edittask);
+
+
+const storagedata=[];
+// console.log(formdata);
+// console.log("form",form);
+// console.log("form2",form2);
 
 function edittask(event){
     event.preventDefault();
-    //   getLocalStorage();
     
+    // Form 1
     const dataArr =[...new FormData(this)];
-    console.log(dataArr);
-    
+    console.log("dataArr",dataArr);
+
     const data = Object.fromEntries(dataArr);
     console.log(data);
+
+    // // Form 2
+    // const editdataArr =[...new FormData(form2)];
+    // console.log("editdataArr",editdataArr);
+
+    // const editdata = Object.fromEntries(editdataArr);
+    // console.log("editdata",editdata);
+    // let name = editdataArr.get('title');
+    
     // console.log(data.title);
     
     const tasklist= document.getElementById("task").value;
     let today = new Date();
-    // let time = today.getHours() + ":" + today.getMinutes() + ":" + today.getSeconds();
-
     let time = today.toLocaleString([], { hour12: true});
     console.log(typeof(time));
+
+    if(data.priority==undefined){
+        data.priority=false;
+    }
+    console.log(data.priority);
     
     const task={
         title:data.title,
@@ -35,15 +51,12 @@ function edittask(event){
         tasklist:tasklist,
         priority:data.priority
     };
-
     
     storagedata.push(task);
     // console.log(storagedata);
-    // console.log(task);
     console.log(task);
-
     // console.log(task.tasklist);
-  
+
     setLocalStorage();
 
     if(task.tasklist=="divc1")
@@ -64,15 +77,12 @@ function edittask(event){
     else
     {console.log("fail");}
 
-
     // render(task);
     divcount();
   
     modal.classList.add('hidden');
     overlay.classList.add('hidden');
-
     document.getElementById('titleL').value=document.getElementById('descriptionL').value='';
-
 }
 
 
@@ -84,51 +94,44 @@ function render(task,divclass) {
     divcount();
     // <div id="box-' + i + '"></div> ----> unique id
     const mark=`
-        <article class="card" draggable="true" ondragstart="drag(event)" data-id="${task.title}" 
+        <div onclick="editdiv()" class="card" draggable="true" ondragstart="drag(event)" 
+        data-id="${task.title}" 
         style="border: 2px solid ${task.color};
             border-left: 6px solid ${task.color};
-            background-color:${task.priority=="true"?"rgb(240, 121, 121) !important":'white'} ">
+            background-color:${task.priority=="true"?"rgb(240, 121, 121)":'white'}">
             <p class="datedata">${task.date}</p>
             <h3>${task.title}</h3>
             <h1>${task.description}</h1>
-        </article>`;
+        </div>`;
 
     if(task.priority=="true"){
-        // console.log("true");
         divclass.insertAdjacentHTML('beforebegin', mark);
     }
     else{
-        // console.log("false");
         divclass.insertAdjacentHTML('beforeend', mark);
     }
-    //formdata.innerHTML= mark;
 }
 
 
 
-// const findca= document.querySelector('.card');
-// findca.addEventListener('click',function(e){
-//     console.log(e.target);
-// });
 
+// document.querySelector('card').addEventListener('click', function(){
+//     console.log(cardEdit);
+    
+//   });
 
-
-function setLocalStorage() {
-    // let storagedata;
-    // for (let i = 0; i < storagedata; i++) {
-    //     storagedata = storagedata.key(i);
-    //     console.log(`Item at ${i}: ${storagedata}`);
-    // }
-    // console.log("data",storagedata);
-    localStorage.setItem('storagedata', JSON.stringify(storagedata));
-}
-
-// function getLocalStorage() {
-//     let sd = localStorage.getItem("storagedata");
-//     let data = JSON.parse(sd);
-//     render(data);
+// let cardEdit = document.querySelector('data-id');
+// cardEdit.addEventListener('click', function editcard(){
+    //     console.log("Cardclicked");
+    // });
+    
+// function editcard(){
+//     console.log("editcard")
 // }
 
+function setLocalStorage() {
+    localStorage.setItem('storagedata', JSON.stringify(storagedata));
+}
 
 
 function getLocalStorage() {
@@ -161,17 +164,14 @@ function getLocalStorage() {
 }
 
 
-
 function init() {
     getLocalStorage();
     divcount();
 }
 init();
 
-
-
+///////////////////////////////////////////////////////////////////////
 function divcount(a=0){
-
     let divcount=document.getElementById("divc1").childElementCount
     let divcount2=document.getElementById("divc2").childElementCount
     let divcount3=document.getElementById("divc3").childElementCount
@@ -196,30 +196,51 @@ function divcount(a=0){
 
 
 
-
 /////////////////////////////////////////////////////////////////////////
 //Modal Window
 const modal= document.querySelector('.modal');
 const overlay=document.querySelector('.overlay');
-const btnCloseModal=document.querySelector('.close-modal');
 const btnOpenModal=document.querySelector('.show-modal');
+const btnCloseModal=document.querySelector('.close-modal');
 
+const modalCard= document.querySelector('.modalCard');
+const overlayCard=document.querySelector('.overlayCard');
+const btnCloseCard=document.querySelector('.closeCard-modal');
+
+function editdiv(){
+    console.log("editdiv");
+    const btnOpenCard=document.querySelector('.card');
+    btnOpenCard.addEventListener('click',function(){
+        modalCard.classList.remove('hidden');
+        overlayCard.classList.remove('hidden');
+    });
+}
 
 btnOpenModal.addEventListener('click',function(){
-    // console.log('Button Clicked');
     modal.classList.remove('hidden');
     overlay.classList.remove('hidden');
 });
 
 btnCloseModal.addEventListener('click',function(){
     console.log('Button closed');
-    
     modal.classList.add('hidden');
     overlay.classList.add('hidden');
 });
+
+btnCloseCard.addEventListener('click',function(){
+    console.log('Button closed');
+    modalCard.classList.add('hidden');
+    overlayCard.classList.add('hidden');
+});
+
 overlay.addEventListener('click',function(){
     modal.classList.add('hidden');
     overlay.classList.add('hidden');
+});
+
+overlayCard.addEventListener('click',function(){
+    modalCard.classList.add('hidden');
+    overlayCard.classList.add('hidden');
 });
 
 document.addEventListener('keydown',function(e){
@@ -228,9 +249,14 @@ document.addEventListener('keydown',function(e){
         overlay.classList.add('hidden');
     }
 })
+
+document.addEventListener('keydown',function(e){
+    if(e.key==='Escape' && !modalCard.classList.contains('hidden')){
+        modalCard.classList.add('hidden');
+        overlayCard.classList.add('hidden');
+    }
+})
 /////////////////////////////////////////////////////////////////////////
-
-
 
 
 
@@ -264,12 +290,18 @@ const dragLeave = event => {
 const drag = event => {
     event.dataTransfer.setData('text/html', event.currentTarget.outerHTML);
     event.dataTransfer.setData('text/plain', event.currentTarget.dataset.id);
-    ////////////////////////////////////
-    // console.log(event.currentTarget.outerHTML);
-    // console.log(event.currentTarget.dataset.id);
-    ////////////////////////////////////
-    // console.log('drag');
 };
+
+
+// const form2 = document.forms[1];
+// form2.addEventListener("submit2", edittaskdata);
+// function edittaskdata(){
+//     const editdataarr =[...new FormData(this)];
+//     console.log("form2",editdataarr);
+    
+//     const editdata = Object.fromEntries(editdataarr);
+//     console.log(editdata);
+// }
 
 const drop = event => {
     // alert('id');
@@ -286,15 +318,19 @@ const drop = event => {
     const dropid=event.target.lastElementChild.id;
     console.log("dropid:",dropid);
     // console.log("last-child",event.currentTarget.parentElement);
-
     // let time = today.toLocaleString([], { hour12: true});
+
+    
 
 
     storagedata.forEach((arrow,i)=>{
-        // console.log("arrow",arrow);
+        console.log("arrow",arrow);
         // console.log("i",i);
         if(id == arrow.title){
             // arrow.tasklist=dropid;
+
+            // storagedata.splice(storagedata[i],1);
+            storagedata.splice(i,1);
             
             let dropdata={
                 title:arrow.title,
@@ -310,7 +346,6 @@ const drop = event => {
             
             // storagedata.splice(storagedata.indexOf(i),1);
             // console.log("splice-i",i);
-            storagedata.splice(i,1);
             storagedata.push(dropdata);
 
             // console.log(storagedata);
@@ -318,36 +353,6 @@ const drop = event => {
             setLocalStorage();
         }
     });
- 
-
-
-       // let copydata = [];
-    // copydata=storagedata;
-    // console.log(copydata);
-
-
-    // copydata.forEach((arrow,i)=>{
-    //     if(id == arrow.title){
-            
-    //         let dropdata={
-    //             title:arrow.title,
-    //             description:arrow.description,
-    //             color:arrow.color,
-    //             tasklist:arrow.tasklist
-    //         }
-    //         dropdata.tasklist=dropid;
-    //         // localStorage.clear(storagedata);
-    //         // console.log("afterclear",localStorage.clear(storagedata));
-            
-    //         copydata.splice(copydata.indexOf(i),1);
-    //         copydata.push(dropdata);
-
-    //         // copydata
-    //         // setLocalStorage();
-    //     }
-    //     console.log("afterif",copydata);
-    // });
-
 
     event.preventDefault();
     event.currentTarget.innerHTML = event.currentTarget.innerHTML + event.dataTransfer.getData('text/html');
@@ -381,7 +386,13 @@ document.addEventListener('dragend', e => {
 /////////////////////////////////////////////////////////////////////////
 
 
+
+
+
+/////////////////////////////////////////////////////////////////////////
+//Reset Localstorage
 function resetdata(){
     localStorage.clear(storagedata);
     window.location.reload();
 }
+/////////////////////////////////////////////////////////////////////////
